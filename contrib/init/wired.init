@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#  wired The Wire core server.
+#
+#
+# chkconfig: 345 80 20
+# description: wired
+# processname: wired
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/wired, see below
+if [ -f /etc/sysconfig/wired ]; then
+        . /etc/sysconfig/wired
+fi
+
+RETVAL=0
+
+prog=wired
+# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/wired
+lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/wired}
+
+# wired defaults to /usr/bin/wired, override with BITCOIND_BIN
+bitcoind=${BITCOIND_BIN-/usr/bin/wired}
+
+# wired opts default to -disablewallet, override with BITCOIND_OPTS
+bitcoind_opts=${BITCOIND_OPTS}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $bitcoind $bitcoind_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac

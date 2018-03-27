@@ -1,0 +1,26 @@
+# /etc/conf.d/wired: config file for /etc/init.d/wired
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/wire/wire.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/wired"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/wired.pid"
+
+# Where to write wired data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/wired"
+
+# User and group to own wired process
+#BITCOIND_USER="wire"
+#BITCOIND_GROUP="wire"
+
+# Path to wired executable
+#BITCOIND_BIN="/usr/bin/wired"
+
+# Nice value to run wired under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""

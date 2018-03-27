@@ -1,0 +1,26 @@
+[Unit]
+Description=Wire's distributed currency daemon
+After=network.target
+
+[Service]
+User=wire
+Group=wire
+
+Type=forking
+PIDFile=/var/lib/wired/wired.pid
+
+ExecStart=/usr/bin/wired -daemon -pid=/var/lib/wired/wired.pid \
+          -conf=/etc/wire/wire.conf -datadir=/var/lib/wired
+
+ExecStop=-/usr/bin/wire-cli -conf=/etc/wire/wire.conf \
+         -datadir=/var/lib/wired stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

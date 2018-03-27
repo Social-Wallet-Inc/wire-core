@@ -1,0 +1,30 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/wire_bg.qm</file>
+        <file alias="ca">locale/wire_ca.qm</file>
+        <file alias="cs">locale/wire_cs.qm</file>
+        <file alias="da">locale/wire_da.qm</file>
+        <file alias="de">locale/wire_de.qm</file>
+        <file alias="en">locale/wire_en.qm</file>
+        <file alias="en_US">locale/wire_en_US.qm</file>
+        <file alias="es">locale/wire_es.qm</file>
+        <file alias="fi">locale/wire_fi.qm</file>
+        <file alias="fr_FR">locale/wire_fr_FR.qm</file>
+        <file alias="hr">locale/wire_hr.qm</file>
+        <file alias="it">locale/wire_it.qm</file>
+        <file alias="ja">locale/wire_ja.qm</file>
+        <file alias="ko_KR">locale/wire_ko_KR.qm</file>
+        <file alias="nl">locale/wire_nl.qm</file>
+        <file alias="pl">locale/wire_pl.qm</file>
+        <file alias="pt">locale/wire_pt.qm</file>
+        <file alias="pt_BR">locale/wire_pt_BR.qm</file>
+        <file alias="ro_RO">locale/wire_ro_RO.qm</file>
+        <file alias="ru">locale/wire_ru.qm</file>
+        <file alias="sk">locale/wire_sk.qm</file>
+        <file alias="sv">locale/wire_sv.qm</file>
+        <file alias="tr">locale/wire_tr.qm</file>
+        <file alias="uk">locale/wire_uk.qm</file>
+        <file alias="zh_CN">locale/wire_zh_CN.qm</file>
+        <file alias="zh_TW">locale/wire_zh_TW.qm</file>
+    </qresource>
+</RCC>

@@ -1,3 +1,4 @@
-### Wire is a fork of [PIVX](https://github.com/PIVX-Project/PIVX) that forked [Dash](https://github.com/dashpay/dash) that forked [Bitcoin](https://github.com/bitcoin/bitcoinp)
+### Wire 
 
+![alt text](http://storage9.static.itmages.com/i/18/0327/h_1522189730_8007287_47c1ba2fa7.png)
 

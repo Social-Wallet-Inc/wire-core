@@ -54,10 +54,10 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("0x00000584c31801a98bfe59e888b8dbfc8375887fa917b80807fe5019f302d369"));
+    (0, uint256("0x00000a336d30cec30154fc0bf9450a4cad81525416cc7f639713dd7f0039653c"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1522015694, // * UNIX timestamp of last checkpoint block
+    1514540176, // * UNIX timestamp of last checkpoint block
     0,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     2000        // * estimated number of transactions per day after checkpoint
@@ -88,35 +88,6 @@ libzerocoin::ZerocoinParams* CChainParams::Zerocoin_Params() const
     return &ZCParams;
 }
 
-//GENESIS MINE
-void MineGenesis(CBlock genesis, uint256 bnProofOfWorkLimit) {
-if(genesis.GetHash() != uint256("0x"))
-        {
-            printf("Searching for genesis block...\n");
-            uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
-            while(uint256(genesis.GetHash()) > hashTarget)
-            {
-                ++genesis.nNonce;
-                if (genesis.nNonce == 0)
-                {
-                    printf("NONCE WRAPPED, incrementing time");
-                    std::cout << std::string("NONCE WRAPPED, incrementing time:\n");
-                    ++genesis.nTime;
-                }
-                if (genesis.nNonce % 10000 == 0)
-                {
-                    printf("Mainnet: nonce %08u: hash = %s \n", genesis.nNonce, genesis.GetHash().ToString().c_str());
-                }
-            }
-            printf("merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
-            printf("block.nTime = %u \n", genesis.nTime);
-            printf("block.nNonce = %u \n", genesis.nNonce);
-            printf("block.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-        }
-}
-
-
-
 class CMainParams : public CChainParams
 {
 public:
@@ -133,7 +104,7 @@ public:
         pchMessageStart[1] = 0x33;
         pchMessageStart[2] = 0x29;
         pchMessageStart[3] = 0x56;
-        vAlertPubKey = ParseHex("0461a371e936936febe96c858fbf9c44d4b9d05aecab8886e1f373808b33ed7f2f792be92fb873d9ca41b68887fd3062c736bda5309c2f0c15d6aa436ef2168686");
+        vAlertPubKey = ParseHex("04bxbf5f4dab42002143f5b25a2e6fd658dd300508c0fd3c890edfa241edcdd224c9fb62d0a3e86ab655c384b598bd3e92d25fee84774060a0d461f0e9483587e5");
         nDefaultPort = 6520;
         bnProofOfWorkLimit = ~uint256(0) >> 20; // Wire starting difficulty is 1 / 2^12
         nSubsidyHalvingInterval = 210000;
@@ -153,7 +124,7 @@ public:
         nModifierUpdateBlock = 999999999;
         nZerocoinStartHeight = 201;
         nAccumulatorStartHeight = 1;
-        nZerocoinStartTime = 1518561986; // 11pm
+        nZerocoinStartTime = 1523721188; // 14 - apr - 2018
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = ~1; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = ~1; //First block that bad serials emerged
@@ -169,46 +140,46 @@ public:
          *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
          *   vMerkleTree: e0028e
          */
-        const char* pszTimestamp = "New York Times = Robotic Fish to Keep a Fishy Eye on the Health of the Oceans 3/26/2018";
+        const char* pszTimestamp = "JPMorgan (JPM) Q1 Earnings Beat on Better Rates and Trading  - Apr 14 2018 - Remapper";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue = 0 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("04c74dea4cda2365ec1665ad392b9644d370de7cc2bd20c8bbb35061c0947e6669987263925cc3cf273c96ffd2018c4fa75b20e938a17cbd73320838ea3c64f35f") << OP_CHECKSIG;
+        txNew.vout[0].nValue = 1 * COIN;
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("042292b1f401860eea99e1a8a103effbd7e1c013a59a1a3a0c91c9d1997a0bc6f338567278c11344802838c107055bf7c1641eaed61e879245c255a4f5be5746fc") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1522015694;
+        genesis.nTime = 1523711188;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 494636;
-
-	    //MineGenesis(genesis, bnProofOfWorkLimit);
-		
+        genesis.nNonce = 1468448;
+				
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x00000584c31801a98bfe59e888b8dbfc8375887fa917b80807fe5019f302d369"));
-        assert(genesis.hashMerkleRoot == uint256("0x7d67e1744f7f2a5d0fbd7792a0d87c7be0e9f5550bed147678b6cb0f80c5f90d"));
+        assert(hashGenesisBlock == uint256("0x00000a336d30cec30154fc0bf9450a4cad81525416cc7f639713dd7f0039653c"));
+        assert(genesis.hashMerkleRoot == uint256("0x4929def5168a64be5e2074c8ef9c2197133f0273f16c44e9f2844c6dc0946d09"));
 
-        vSeeds.push_back(CDNSSeedData("207.148.83.99", "207.148.83.99"));         // Elastic IP / DNS address
-        vSeeds.push_back(CDNSSeedData("45.77.200.131", "45.77.200.131"));     
-        vSeeds.push_back(CDNSSeedData("199.247.28.119", "199.247.28.119"));     
-        vSeeds.push_back(CDNSSeedData("45.63.67.117", "45.63.67.117"));     
-        vSeeds.push_back(CDNSSeedData("104.238.171.65", "104.238.171.65"));    
-        vSeeds.push_back(CDNSSeedData("140.82.12.178", "140.82.12.178"));   
-        
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 73);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 21);
-        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 232);
-        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x05)(0x4D)(0x21)(0x73).convert_to_container<std::vector<unsigned char> >();
-        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x05)(0x31)(0x32)(0x2B).convert_to_container<std::vector<unsigned char> >();
+        vSeeds.push_back(CDNSSeedData("wire.seeds.mn.zone", "wire.seeds.mn.zone"));   // DNS SEEDER
+		vSeeds.push_back(CDNSSeedData("wire.mnseeds.com", "wire.mnseeds.com"));       // DNS SEEDER
+		vSeeds.push_back(CDNSSeedData("209.250.243.131", "209.250.243.131"));         // Single node address
+		vSeeds.push_back(CDNSSeedData("209.250.241.176", "209.250.241.176"));         // Single node address
+		vSeeds.push_back(CDNSSeedData("45.77.239.108", "45.77.239.108"));             // Single node address
+		vSeeds.push_back(CDNSSeedData("107.191.44.102", "107.191.44.102"));           // Single node address
+		vSeeds.push_back(CDNSSeedData("45.32.235.211", "45.32.235.211"));             // Single node address
+		vSeeds.push_back(CDNSSeedData("108.61.188.67", "108.61.188.67"));             // Single node address
+       
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 28);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 8);
+        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
+        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0x2D)(0x25)(0x73).convert_to_container<std::vector<unsigned char> >();
+        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x02)(0x21)(0x31)(0x2B).convert_to_container<std::vector<unsigned char> >();
         // 	BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0xbc).convert_to_container<std::vector<unsigned char> >();
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
         fRequireRPCPassword = true;
-        fMiningRequiresPeers = false;
+        fMiningRequiresPeers = true;
         fAllowMinDifficultyBlocks = false;
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
@@ -219,8 +190,8 @@ public:
 
         nPoolMaxTransactions = 3;
         //strSporkKey = "0459eede7626441f7802af2736cb3a4aeb3e1f95070cde39d068a4f16525ee8fdd3c075f29f9e115aeb91952239194aa6ac19765574fed8a0d7f174f2b450e9630";
-		strSporkKey = "04bbd3f10e48b9417b8ab4cd8b2a44ee196639b8df9a16f37f7c7a9019ce0da72a7cb70a9d93dc14ba3d9b9c6af4c6ea3a32ab673a8ffae36a4d526c7b9e3600a6";
-        strObfuscationPoolDummyAddress = "Ceax8jHDQ1s2kHVjysEiTQncVdUrNBuXtp";
+		strSporkKey = "04b080934472357368be9982a8c138968958267ff5de3d70d92d2d436642dd1da3976b2b1ec62f934a6b925fc1ccab32205580d1d50554fb1da3c2d8b964c15d3d";
+        strObfuscationPoolDummyAddress = "Ceax8jHDQ1s2kHVjysEoTQncVdUrNBuXtp";
         nStartMasternodePayments = 1403728576; //Wed, 25 Jun 2014 20:36:16 GMT
 
         /** Zerocoin */
@@ -269,7 +240,7 @@ public:
         nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMaxMoneyOut = 43199500 * COIN;
         nZerocoinStartHeight = 201576;
-        nZerocoinStartTime = 1501776000;
+        nZerocoinStartTime = 1524711188;
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = 9908000; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = 9891737; //First block that bad serials emerged

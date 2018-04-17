@@ -80,7 +80,7 @@ bool fVerifyingBlocks = false;
 unsigned int nCoinCacheSize = 5000;
 bool fAlerts = DEFAULT_ALERTS;
 
-unsigned int nStakeMinAge = 60 * 60;
+unsigned int nStakeMinAge = 1 * 60 * 60;
 int64_t nReserveBalance = 0;
 
 /** Fees smaller than this (in duffs) are considered zero fee (for relaying and mining)
@@ -2120,64 +2120,63 @@ double ConvertBitsToDouble(unsigned int nBits)
 int64_t GetBlockValue(int nHeight)
 {
     int64_t nSubsidy = 0;
-    //Testnet
+
     if (Params().NetworkID() == CBaseChainParams::TESTNET) {
         if (nHeight < 200 && nHeight > 0)
             return 250000 * COIN;
     }
 
-    //Mainnet
-    if (nHeight == 3) {
+    if (nHeight == 0) {
         nSubsidy = 250000000 * COIN;
-    } else if (nHeight < 40320 && nHeight > 0) {
-        nSubsidy = 10 * COIN;
-    } else if (nHeight <= 303121 && nHeight >= 40320) {
+    } else if (nHeight < 40520 && nHeight > 0) {
+        nSubsidy = 1 * COIN;
+    } else if (nHeight < 80842 && nHeight > 40520) {
+        nSubsidy = 2 * COIN;
+	} else if (nHeight < 343643 && nHeight > 80842) {
         nSubsidy = 90 * COIN;
-	} else if (nHeight <= 565922 && nHeight >= 303121) {
+	} else if (nHeight < 606444 && nHeight > 343643) {
         nSubsidy = 80 * COIN;
-	} else if (nHeight <= 828723 && nHeight >= 565922) {
+	} else if (nHeight < 869245 && nHeight > 606444) {
         nSubsidy = 70 * COIN;
-	} else if (nHeight <= 1091524 && nHeight >= 828723) {
+	} else if (nHeight < 1132046 && nHeight > 869245) {
         nSubsidy = 60 * COIN;
-	} else if (nHeight <= 2139845 && nHeight >= 1092524) {
+	} else if (nHeight < 2180367 && nHeight > 1132046) {
         nSubsidy = 24 * COIN;
-	} else if (nHeight <= 3191046 && nHeight >= 2139845) {
+	} else if (nHeight < 3231568 && nHeight > 2180367) {
         nSubsidy = 14 * COIN;
-	} else if (nHeight <= 4242247 && nHeight >= 3191046) {
+	} else if (nHeight < 4282769 && nHeight > 3231568) {
         nSubsidy = 13 * COIN;
-	} else if (nHeight <= 5293448 && nHeight >= 4242247) {
+	} else if (nHeight < 5333970 && nHeight > 4282769) {
         nSubsidy = 12 * COIN;
-	} else if (nHeight <= 6341769 && nHeight >= 5293448) {
+	} else if (nHeight < 6382291 && nHeight > 5333970) {
         nSubsidy = 11 * COIN;
-	} else if (nHeight <= 7392970 && nHeight >= 6341769) {
+	} else if (nHeight < 7433492 && nHeight > 6382291) {
         nSubsidy = 10 * COIN;
-	} else if (nHeight <= 8444171 && nHeight >= 7392970) {
+	} else if (nHeight < 8484693 && nHeight > 7433492) {
         nSubsidy = 9.5 * COIN;
-	} else if (nHeight <= 9495372 && nHeight >= 8444171) {
+	} else if (nHeight < 9535894 && nHeight > 8484693) {
         nSubsidy = 9 * COIN;
-	} else if (nHeight <= 10543693 && nHeight >= 9495372) {
+    } else if (nHeight < 10584215 && nHeight > 9535894) {
         nSubsidy = 8.5 * COIN;
-    } else if (nHeight <= 11594894 && nHeight >= 10543693) {
+	} else if (nHeight < 11635416 && nHeight > 10584215) {
         nSubsidy = 8 * COIN;
-	} else if (nHeight <= 12646095 && nHeight >= 11594894) {
+	} else if (nHeight < 12686618 && nHeight > 11635416) {
         nSubsidy = 7.5 * COIN;
-	} else if (nHeight <= 13697296 && nHeight >= 12646095) {
+	} else if (nHeight < 13737818 && nHeight > 12686618) {
         nSubsidy = 7 * COIN;
-	} else if (nHeight <= 14745617 && nHeight >= 13697296) {
+	} else if (nHeight < 14786139 && nHeight > 13737818) {
         nSubsidy = 6.5 * COIN;
-	} else if (nHeight <= 15796818 && nHeight >= 14745617) {
+	} else if (nHeight < 15837340 && nHeight > 14786139) {
         nSubsidy = 6 * COIN;
-	} else if (nHeight <= 16848019 && nHeight >= 15796818) {
+	} else if (nHeight < 16888541 && nHeight > 15837340) {
         nSubsidy = 5.5 * COIN;
-	} else if (nHeight <= 17899220 && nHeight >= 16848019) {
+	} else if (nHeight < 17939742 && nHeight > 16888541) {
         nSubsidy = 5 * COIN;
-	} else if (nHeight <= 18947541 && nHeight >= 17899220) {
+	} else if (nHeight < 18988063 && nHeight > 17939742) {
         nSubsidy = 4.5 * COIN;
-	} else if (nHeight <= 19998742 && nHeight >= 18947541) {
+	} else if (nHeight < 20039264 && nHeight > 18988063) {
         nSubsidy = 4.25 * COIN;
-	} else if (nHeight <= 21049943 && nHeight >= 19998742) {
-        nSubsidy = 4 * COIN;
-	} else if (nHeight <= 99999999 && nHeight >= 21049943) {
+	} else if (nHeight < 21090465 && nHeight > 20039264) {
         nSubsidy = 4 * COIN;
     } else {
         nSubsidy = 4 * COIN;
@@ -2194,11 +2193,11 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
             return 0;
     }
 	
-	// 65% for Masternodes
-	if (nHeight < 5 && nHeight > 0) {
-	    ret = blockValue  / 100 * 0;
-	} else {
-		ret = blockValue  / 100 * 70;
+	// 70% for Masternodes
+	if (nHeight == 0) {
+	      ret = blockValue  / 100 * 0;
+	} else if (nHeight > 1) {
+		  ret = blockValue  / 100 * 70;
 		
 	}
 			
@@ -2215,7 +2214,7 @@ bool IsInitialBlockDownload()
     if (lockIBDState)
         return false;
     bool state = (chainActive.Height() < pindexBestHeader->nHeight - 24 * 6 ||
-                  pindexBestHeader->GetBlockTime() < GetTime() - 6 * 60 * 60) && chainActive.Height() > 3030; // ~144 blocks behind -> 2 x fork detection time
+                  pindexBestHeader->GetBlockTime() < GetTime() - 6 * 60 * 60) && chainActive.Height() > 846; // ~144 blocks behind -> 2 x fork detection time
     if (!state)
         lockIBDState = true;
     return state;

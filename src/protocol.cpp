@@ -6,7 +6,6 @@
 #include "protocol.h"
 
 #include "chainparams.h"
-#include "compat.h"
 #include "util.h"
 #include "utilstrencodings.h"
 
@@ -53,7 +52,7 @@ CMessageHeader::CMessageHeader(const char* pszCommand, unsigned int nMessageSize
 
 std::string CMessageHeader::GetCommand() const
 {
-    return std::string(pchCommand, pchCommand + strnlen(pchCommand, COMMAND_SIZE));
+    return std::string(pchCommand, pchCommand + strnlen_int(pchCommand, COMMAND_SIZE));
 }
 
 bool CMessageHeader::IsValid() const

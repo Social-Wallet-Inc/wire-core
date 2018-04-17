@@ -14,7 +14,7 @@
 
 #include <stdint.h>
 
-#include "../json/json_spirit_value.h"
+#include "json/json_spirit_value.h"
 #include "utilmoneystr.h"
 #include "base58.h"
 

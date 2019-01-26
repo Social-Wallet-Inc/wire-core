@@ -1,2 +1,2 @@
-#define BUILD_SUFFIX 3addcd8-dirty
-#define BUILD_DATE "2018-03-28 09:49:06 +1100"
+#define BUILD_SUFFIX 00r3map00-Clean
+#define BUILD_DATE "2019-01-26 09:49:06 +1100"
